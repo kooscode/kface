@@ -6,6 +6,8 @@ midnight, at a glance, with a small MVC structure underneath.
 
 ![kface on a Pebble Time 2](images/screenshot.png)
 
+**[Install it from the Rebble App Store](https://apps.repebble.com/da0dc9441cf34e9dba801da6)**
+
 ## Features
 
 - **Time** in 12h or 24h format, following the watch's system setting (no
