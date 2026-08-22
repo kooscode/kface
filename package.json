@@ -1,0 +1,29 @@
+{
+  "name": "kface",
+  "author": "kSoft",
+  "version": "1.0.0",
+  "keywords": ["pebble-app"],
+  "private": true,
+  "dependencies": {},
+  "pebble": {
+    "displayName": "kface",
+    "uuid": "c3ba829f-0d5f-4b94-8848-16822cbec076",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "emery"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "TEMPERATURE",
+      "WEATHER_CODE",
+      "IS_DAY",
+      "CITY"
+    ],
+    "resources": {
+      "media": []
+    }
+  }
+}
