@@ -108,13 +108,11 @@ void view_weather_create(Layer *parent, GRect bounds)
   s_temp_layer = text_layer_create(GRect(0, TEMP_Y, bounds.size.w / 2, TEMP_HEIGHT));
   text_layer_set_background_color(s_temp_layer, GColorClear);
   text_layer_set_text_color(s_temp_layer, GColorWhite);
-  // Same font size as HR/steps, per request.
+  
   text_layer_set_font(s_temp_layer, fonts_get_system_font(TEMP_FONT));
   text_layer_set_text_alignment(s_temp_layer, GTextAlignmentCenter);
   layer_add_child(parent, text_layer_get_layer(s_temp_layer));
 
-  // Frame is a placeholder - reposition_condition() (called from
-  // view_weather_set_temp()) places it based on temp's actual glyph width.
   s_condition_layer = text_layer_create(GRect(bounds.size.w / 2, CONDITION_Y, bounds.size.w / 2, CONDITION_HEIGHT));
   text_layer_set_background_color(s_condition_layer, GColorClear);
   text_layer_set_text_color(s_condition_layer, GColorPictonBlue);
@@ -153,7 +151,18 @@ void view_weather_set_temp(bool valid, int16_t temp_c_tenths)
     int temp_f_tenths = (temp_c_tenths * 9) / 5 + 320;
     int whole = (temp_f_tenths >= 0) ? (temp_f_tenths + 5) / 10 : -((-temp_f_tenths + 5) / 10);
     snprintf(s_buf, sizeof(s_buf), "%d°F", whole);
+
+    // Set the color of the temperature text based on the temperature value
+    if (whole < 50)
+      text_layer_set_text_color(s_temp_layer, GColorCyan);
+    else if (whole > 99) 
+      text_layer_set_text_color(s_temp_layer, GColorYellow);
+    else 
+      text_layer_set_text_color(s_temp_layer, GColorGreen);
+    
   }
+
+
   text_layer_set_text(s_temp_layer, s_buf);
   reposition_condition();
 }

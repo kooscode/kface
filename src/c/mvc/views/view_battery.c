@@ -27,7 +27,16 @@ static void battery_update_proc(Layer *layer, GContext *ctx)
 
   GRect charge = inner;
   charge.size.w = (inner.size.w * s_percent) / 100;
-  graphics_context_set_fill_color(ctx, GColorGreen);
+
+  //set the color of the charge bar based on the battery percentage
+  if (s_percent < 20) {
+    graphics_context_set_fill_color(ctx, GColorRed);
+  } else if (s_percent < 50) {
+    graphics_context_set_fill_color(ctx, GColorYellow);
+  } else {
+    graphics_context_set_fill_color(ctx, GColorGreen);
+  }
+
   graphics_fill_rect(ctx, charge, 0, GCornerNone);
 }
 

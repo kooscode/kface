@@ -28,6 +28,14 @@ void view_heart_destroy(void)
 
 void view_heart_set_bpm(uint32_t bpm)
 {
+  // Set the color of the heart rate text based on the bpm value
+  if (bpm < 110)
+    text_layer_set_text_color(s_heart_layer, GColorGreen);
+  else if (bpm < 140) 
+    text_layer_set_text_color(s_heart_layer, GColorYellow);
+  else
+    text_layer_set_text_color(s_heart_layer, GColorRed);  
+
   static char s_buf[16];
   if (bpm == 0)
   {
