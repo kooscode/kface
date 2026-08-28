@@ -2,7 +2,7 @@
 
 A Pebble Time 2 (emery) watchface written in C against the Pebble SDK,
 built with a small MVC structure. Currently displays time, date, battery,
-weather, heart rate, and steps-since-midnight.
+Bluetooth connection state, weather, heart rate, and steps-since-midnight.
 
 ## SDK docs
 
@@ -28,6 +28,7 @@ src/c/
     controller.{c,h}       The ONLY place system event subscriptions happen
                             (tick_timer_service_subscribe, health_service_
                             events_subscribe, battery_state_service_subscribe,
+                            connection_service_subscribe,
                             app_message_register_inbox_received/_open).
                             inbox_received_handler() unpacks the AppMessage
                             PebbleKit JS sends (see pkjs/index.js below) into
@@ -39,7 +40,9 @@ src/c/
                             model_date_get(format) (each returns const char*
                             into an internal static buffer, ctime()-style),
                             model_bpm_get(), model_steps_today_get(),
-                            model_battery_get(). model_weather_get()/
+                            model_battery_get(), model_bluetooth_get()
+                            (connection_service_peek_pebble_app_connection()).
+                            model_weather_get()/
                             model_weather_set() are push-based (see
                             controller.c's inbox_received_handler below)
                             rather than pulled from a Pebble service. No
@@ -56,6 +59,9 @@ src/c/
                              blank space between the divider lines
       view_heart.{c,h}      owns BPM TextLayer (yellow), bottom row left half
       view_steps.{c,h}      owns steps TextLayer (green), bottom row right half
+      view_bluetooth.{c,h}  small filled-circle indicator, top-right corner
+                             inside the border - green when connected, red
+                             when not
       Each view: _create(Layer *parent, GRect bounds) / _destroy() / _set_*().
       Each owns its own static display buffer internally (TextLayer stores
       the pointer it's given, not a copy - views must not point it at a

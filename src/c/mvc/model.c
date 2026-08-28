@@ -31,6 +31,11 @@ uint8_t model_battery_get(void)
   return battery_state_service_peek().charge_percent;
 }
 
+bool model_bluetooth_get(void)
+{
+  return connection_service_peek_pebble_app_connection();
+}
+
 uint32_t model_steps_get(enum steps_interval interval)
 {
   if (interval == STEPS_INTERVAL_TODAY) {

@@ -14,6 +14,9 @@ uint32_t model_bpm_get(void);
 // Returns the current battery charge, 0-100.
 uint8_t model_battery_get(void);
 
+// Returns true if the watch currently has a Bluetooth connection to the phone.
+bool model_bluetooth_get(void);
+
 // Returns the step count accumulated since midnight.
 enum steps_interval {
   STEPS_INTERVAL_TODAY,

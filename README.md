@@ -15,6 +15,8 @@ midnight, at a glance, with a small MVC structure underneath.
 - **Date**
 - **Battery meter** — a thin bar between time and date; green fill shows
   charge remaining, with a yellow border
+- **Bluetooth indicator** — small dot in the top-right corner, green when
+  connected to your phone, red when not
 - **Weather** — current temperature (°F) and condition, plus the city it was
   fetched for, refreshed via geolocation + [Open-Meteo](https://open-meteo.com)
   through the phone (PebbleKit JS companion — Pebble watches have no
