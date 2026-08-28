@@ -6,6 +6,13 @@
 #define BORDER_THICKNESS 3
 #define ICON_MARGIN 4
 #define ICON_DIAMETER 8
+// The layer is padded a couple px larger than the circle on every side -
+// Pebble layers clip drawing to their own bounds by default, and a circle
+// whose radius exactly reaches the edge of an equal-sized box can get its
+// bottom/right rim clipped off by rasterization rounding. Padding keeps the
+// whole circle safely inside the box.
+#define ICON_PADDING 2
+#define LAYER_SIZE (ICON_DIAMETER + 2 * ICON_PADDING)
 
 static Layer *s_bluetooth_layer;
 static bool s_connected;
@@ -22,10 +29,10 @@ static void bluetooth_update_proc(Layer *layer, GContext *ctx)
 void view_bluetooth_create(Layer *parent, GRect bounds)
 {
   GRect icon_bounds = GRect(
-      bounds.size.w - BORDER_THICKNESS - ICON_MARGIN - ICON_DIAMETER,
+      bounds.size.w - BORDER_THICKNESS - ICON_MARGIN - LAYER_SIZE,
       BORDER_THICKNESS + ICON_MARGIN,
-      ICON_DIAMETER,
-      ICON_DIAMETER);
+      LAYER_SIZE,
+      LAYER_SIZE);
   s_bluetooth_layer = layer_create(icon_bounds);
   layer_set_update_proc(s_bluetooth_layer, bluetooth_update_proc);
   layer_add_child(parent, s_bluetooth_layer);
